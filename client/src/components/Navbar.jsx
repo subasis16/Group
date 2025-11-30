@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { GraduationCap, Search, Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar({ onSearch, onOpenModal }) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // helper to check active link
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
@@ -18,7 +22,13 @@ export default function Navbar({ onSearch, onOpenModal }) {
         <div className="logo">
           <Link
             to="/"
-            style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none", color: "inherit" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              textDecoration: "none",
+              color: "inherit",
+            }}
           >
             <GraduationCap size={28} />
             <div>
@@ -30,13 +40,19 @@ export default function Navbar({ onSearch, onOpenModal }) {
 
         {/* Nav Links */}
         <div className="nav-links">
-           <Link to="/reviews">Reviews</Link>
-          <Link to="/lists">Lists</Link>
-          <Link to="/exams">Exams</Link>
-           <Link to="/universities">Universities</Link>
-          <Link to="/shop">Shop</Link>
-          <Link to="/community">Community</Link>
+          <Link
+            to="/reviews"
+            className={isActive("/reviews") ? "active" : ""}
+          >
+            Reviews
+          </Link>
 
+          <Link
+            to="/universities"
+            className={isActive("/universities") ? "active" : ""}
+          >
+            Universities
+          </Link>
         </div>
 
         {/* Search + Log button */}
