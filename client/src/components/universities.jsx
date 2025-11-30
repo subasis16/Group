@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { MapPin, Filter, Search, Star, X } from 'lucide-react';
-export default Universities;
+
 
 // --- EMBEDDED CSS ---
 const STYLES = `
@@ -470,4 +470,5 @@ const Universities = () => {
 };
 
 export default Universities;
+
 
